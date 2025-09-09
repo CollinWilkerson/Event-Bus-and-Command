@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class BikeController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
-        
+        RaceEventBus.Subscribe(RaceEventType.COUNTDOWN, StartTimer);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
