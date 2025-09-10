@@ -13,10 +13,13 @@ public class HUDController : MonoBehaviour
         RaceEventBus.Unsubscribe(
         RaceEventType.START, DisplayHUD);
     }
+    //when the race starts, display this
     private void DisplayHUD()
     {
         _isDisplayOn = true;
     }
+
+    //create a stop race event to publish the STOP event
     void OnGUI()
     {
         if (_isDisplayOn)

@@ -3,6 +3,7 @@ using UnityEngine;
 public class ClientEventBus : MonoBehaviour
 {
     private bool _isButtonEnabled;
+    [SerializeField] GameObject button;
     void Start()
     {
         gameObject.AddComponent<HUDController>();
@@ -22,17 +23,16 @@ public class ClientEventBus : MonoBehaviour
     }
     private void Restart()
     {
-        _isButtonEnabled = true;
+        button.SetActive(true);
     }
-    void OnGUI()
+    //some gui error comes from here
+    public void OnStartcountdown()
     {
         if (_isButtonEnabled)
         {
-            if (GUILayout.Button("Start Countdown"))
-            {
-                _isButtonEnabled = false;
+                button.SetActive(false);
                 RaceEventBus.Publish(RaceEventType.COUNTDOWN);
-            }
+           
         }
     }
 }

@@ -22,6 +22,7 @@ public class CountdownTimer : MonoBehaviour
         StartCoroutine(Countdown());
     }
 
+    //start race after duration seconds
     private IEnumerator Countdown()
     {
         _currentTime = duration;
