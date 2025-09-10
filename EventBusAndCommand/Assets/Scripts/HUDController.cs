@@ -2,15 +2,30 @@ using UnityEngine;
 
 public class HUDController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private bool _isDisplayOn;
+    void OnEnable()
     {
-        
+        RaceEventBus.Subscribe(
+        RaceEventType.START, DisplayHUD);
     }
-
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        
+        RaceEventBus.Unsubscribe(
+        RaceEventType.START, DisplayHUD);
+    }
+    private void DisplayHUD()
+    {
+        _isDisplayOn = true;
+    }
+    void OnGUI()
+    {
+        if (_isDisplayOn)
+        {
+            if (GUILayout.Button("Stop Race"))
+            {
+                _isDisplayOn = false;
+            }
+            RaceEventBus.Publish(RaceEventType.STOP);
+        }
     }
 }

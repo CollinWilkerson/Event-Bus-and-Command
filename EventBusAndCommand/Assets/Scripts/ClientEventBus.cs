@@ -2,15 +2,37 @@ using UnityEngine;
 
 public class ClientEventBus : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool _isButtonEnabled;
     void Start()
     {
-        
+        gameObject.AddComponent<HUDController>();
+        gameObject.AddComponent<CountdownTimer>();
+        gameObject.AddComponent<BikeController>();
+        _isButtonEnabled = true;
     }
-
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        
+        RaceEventBus.Subscribe(
+        RaceEventType.STOP, Restart);
+    }
+    void OnDisable()
+    {
+        RaceEventBus.Unsubscribe(
+        RaceEventType.STOP, Restart);
+    }
+    private void Restart()
+    {
+        _isButtonEnabled = true;
+    }
+    void OnGUI()
+    {
+        if (_isButtonEnabled)
+        {
+            if (GUILayout.Button("Start Countdown"))
+            {
+                _isButtonEnabled = false;
+                RaceEventBus.Publish(RaceEventType.COUNTDOWN);
+            }
+        }
     }
 }
